@@ -86,7 +86,8 @@ const Index = () => {
 
     dishes.forEach((dish) => {
       const isColdDish = dish.category === 'Салаты' || dish.category === 'Холодные закуски';
-      const portions = isColdDish ? Math.ceil(guests * 1.5) : Math.ceil(guests / 1);
+      const isHotOrDrink = dish.category === 'Горячее' || dish.category === 'Напитки';
+      const portions = isColdDish ? Math.ceil(guests * 1.5) : (isHotOrDrink ? guests : Math.ceil(guests / 1));
       dish.ingredients.forEach((ingredient) => {
         const key = `${ingredient.name}_${ingredient.unit}`;
         const existing = ingredientsMap.get(key);
@@ -226,7 +227,8 @@ const Index = () => {
               <CardContent className="space-y-4">
                 {dishes.map((dish) => {
                   const isColdDish = dish.category === 'Салаты' || dish.category === 'Холодные закуски';
-                  const portions = isColdDish ? Math.ceil(guests * 1.5) : Math.ceil(guests / 1);
+                  const isHotOrDrink = dish.category === 'Горячее' || dish.category === 'Напитки';
+                  const portions = isColdDish ? Math.ceil(guests * 1.5) : (isHotOrDrink ? guests : Math.ceil(guests / 1));
                   return (
                     <Card key={dish.id} className="border-2">
                       <CardContent className="pt-6">

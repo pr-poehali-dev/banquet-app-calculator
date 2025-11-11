@@ -85,7 +85,8 @@ const Index = () => {
     const ingredientsMap = new Map<string, { amount: number; unit: string }>();
 
     dishes.forEach((dish) => {
-      const portions = Math.ceil(guests / 1);
+      const isColdDish = dish.category === 'Салаты' || dish.category === 'Холодные закуски';
+      const portions = isColdDish ? Math.ceil(guests * 1.5) : Math.ceil(guests / 1);
       dish.ingredients.forEach((ingredient) => {
         const key = `${ingredient.name}_${ingredient.unit}`;
         const existing = ingredientsMap.get(key);
@@ -224,7 +225,8 @@ const Index = () => {
               </CardHeader>
               <CardContent className="space-y-4">
                 {dishes.map((dish) => {
-                  const portions = Math.ceil(guests / 1);
+                  const isColdDish = dish.category === 'Салаты' || dish.category === 'Холодные закуски';
+                  const portions = isColdDish ? Math.ceil(guests * 1.5) : Math.ceil(guests / 1);
                   return (
                     <Card key={dish.id} className="border-2">
                       <CardContent className="pt-6">
